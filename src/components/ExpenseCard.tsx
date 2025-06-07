@@ -1,6 +1,6 @@
-import React from 'react';
-import { Calendar, Trash2, Receipt as ReceiptIcon, User } from 'lucide-react';
-import { Expense, Traveler, CURRENCIES } from '../types';
+import React from "react";
+import { Calendar, Trash2, Receipt as ReceiptIcon, User } from "lucide-react";
+import { Expense, Traveler, CURRENCIES } from "../types";
 
 interface ExpenseCardProps {
   expense: Expense;
@@ -8,18 +8,26 @@ interface ExpenseCardProps {
   onDelete: (id: string) => void;
 }
 
-export default function ExpenseCard({ expense, travelers, onDelete }: ExpenseCardProps) {
-  const payer = travelers.find(t => t.id === expense.payerId);
-  const participants = travelers.filter(t => expense.participantIds.includes(t.id));
-  const currency = CURRENCIES.find(c => c.value === expense.currency);
+export default function ExpenseCard({
+  expense,
+  travelers,
+  onDelete,
+}: ExpenseCardProps) {
+  const payer = travelers.find((t) => t.id === expense.payerId);
+  const participants = travelers.filter((t) =>
+    expense.participantIds.includes(t.id)
+  );
+  const currency = CURRENCIES.find((c) => c.value === expense.currency);
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-200">
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">{expense.title}</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            {expense.title}
+          </h3>
           <div className="flex items-center gap-2 text-2xl font-bold text-blue-600 mb-2">
-            <span>{expense.amount.toLocaleString('fa-IR')}</span>
+            <span>{expense.amount.toLocaleString("fa-IR")}</span>
             <span className="text-sm">{currency?.symbol}</span>
           </div>
         </div>
@@ -53,8 +61,11 @@ export default function ExpenseCard({ expense, travelers, onDelete }: ExpenseCar
         <div>
           <p className="text-sm text-gray-600 mb-2">شرکت کنندگان:</p>
           <div className="flex flex-wrap gap-2">
-            {participants.map(participant => (
-              <div key={participant.id} className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1">
+            {participants.map((participant) => (
+              <div
+                key={participant.id}
+                className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1"
+              >
                 <div className="w-6 h-6 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white flex-shrink-0">
                   {participant.profilePicture ? (
                     <img
@@ -66,7 +77,9 @@ export default function ExpenseCard({ expense, travelers, onDelete }: ExpenseCar
                     <User size={12} />
                   )}
                 </div>
-                <span className="text-sm font-medium text-gray-700">{participant.name}</span>
+                <span className="text-sm font-medium text-gray-700">
+                  {participant.name}
+                </span>
               </div>
             ))}
           </div>
@@ -75,7 +88,9 @@ export default function ExpenseCard({ expense, travelers, onDelete }: ExpenseCar
         <div className="flex items-center justify-between pt-3 border-t border-gray-100">
           <div className="flex items-center gap-2 text-gray-500">
             <Calendar size={16} />
-            <span className="text-sm">{new Date(expense.date).toLocaleDateString('fa-IR')}</span>
+            <span className="text-sm">
+              {new Date(expense.date).toLocaleDateString("fa-IR")}
+            </span>
           </div>
           {expense.receipts.length > 0 && (
             <div className="flex items-center gap-1 text-gray-500">

@@ -1,10 +1,10 @@
 <?php
 // Database configuration
-define('DB_HOST', 'dbs.hamyarsystem.net');
+define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'athen');
-define('DB_USER', 'n8n_user');
-define('DB_PASS', ''); // Add your password here
-define('DB_PORT', 33060);
+define('DB_USER', 'dryazdandb');
+define('DB_PASS', 'RIHNjxYuAiZCzSrWFqunim1O2Xk5AbyMfGuN9jrLL6sq8JyqjweYt'); // Add your password here
+define('DB_PORT', 3306);
 define('DB_CHARSET', 'utf8mb4');
 
 class Database {

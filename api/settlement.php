@@ -72,8 +72,17 @@ function calculateSettlement($conn) {
     $manualPayments = $stmt->fetchAll();
     
     foreach ($manualPayments as $payment) {
-        $balances[$payment['payer_id']][$payment['currency']] -= $payment['amount'];
-        $balances[$payment['receiver_id']][$payment['currency']] += $payment['amount'];
+        // The person who paid someone has a higher net payment
+        if (!isset($totalPaid[$payment['payer_id']][$payment['currency']])) {
+            $totalPaid[$payment['payer_id']][$payment['currency']] = 0;
+        }
+        $totalPaid[$payment['payer_id']][$payment['currency']] += $payment['amount'];
+    
+        // The person who received money has a lower net payment
+        if (!isset($totalPaid[$payment['receiver_id']][$payment['currency']])) {
+            $totalPaid[$payment['receiver_id']][$payment['currency']] = 0;
+        }
+        $totalPaid[$payment['receiver_id']][$payment['currency']] -= $payment['amount'];
     }
     
     // Generate settlements for each currency

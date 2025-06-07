@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import { Plus, CreditCard } from 'lucide-react';
-import { ManualPayment, Traveler, Currency, CURRENCIES } from '../types';
+import React, { useState } from "react";
+import { Plus, CreditCard } from "lucide-react";
+import { ManualPayment, Traveler, Currency, CURRENCIES } from "../types";
 
 interface ManualPaymentFormProps {
   travelers: Traveler[];
-  onAdd: (payment: Omit<ManualPayment, 'id' | 'createdAt'>) => void;
+  onAdd: (payment: Omit<ManualPayment, "id" | "createdAt">) => void;
 }
 
-export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFormProps) {
+export default function ManualPaymentForm({
+  travelers,
+  onAdd,
+}: ManualPaymentFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [payerId, setPayerId] = useState('');
-  const [receiverId, setReceiverId] = useState('');
-  const [amount, setAmount] = useState('');
-  const [currency, setCurrency] = useState<Currency>('TOMAN');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [payerId, setPayerId] = useState("");
+  const [receiverId, setReceiverId] = useState("");
+  const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState<Currency>("TOMAN");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,15 +26,15 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
         receiverId,
         amount: parseFloat(amount),
         currency,
-        date: new Date(date)
+        date: new Date(date),
       });
-      
+
       // Reset form
-      setPayerId('');
-      setReceiverId('');
-      setAmount('');
-      setCurrency('TOMAN');
-      setDate(new Date().toISOString().split('T')[0]);
+      setPayerId("");
+      setReceiverId("");
+      setAmount("");
+      setCurrency("TOMAN");
+      setDate(new Date().toISOString().split("T")[0]);
       setIsExpanded(false);
     }
   };
@@ -53,9 +56,14 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-md p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">ثبت پرداخت دستی</h3>
-      
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white rounded-xl shadow-md p-6 space-y-4"
+    >
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        ثبت پرداخت دستی
+      </h3>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -68,7 +76,7 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
             required
           >
             <option value="">انتخاب کنید</option>
-            {travelers.map(traveler => (
+            {travelers.map((traveler) => (
               <option key={traveler.id} value={traveler.id}>
                 {traveler.name}
               </option>
@@ -87,11 +95,13 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
             required
           >
             <option value="">انتخاب کنید</option>
-            {travelers.filter(t => t.id !== payerId).map(traveler => (
-              <option key={traveler.id} value={traveler.id}>
-                {traveler.name}
-              </option>
-            ))}
+            {travelers
+              .filter((t) => t.id !== payerId)
+              .map((traveler) => (
+                <option key={traveler.id} value={traveler.id}>
+                  {traveler.name}
+                </option>
+              ))}
           </select>
         </div>
       </div>
@@ -113,7 +123,7 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
             onChange={(e) => setCurrency(e.target.value as Currency)}
             className="px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
           >
-            {CURRENCIES.map(curr => (
+            {CURRENCIES.map((curr) => (
               <option key={curr.value} value={curr.value}>
                 {curr.label}
               </option>
@@ -141,9 +151,9 @@ export default function ManualPaymentForm({ travelers, onAdd }: ManualPaymentFor
           type="button"
           onClick={() => {
             setIsExpanded(false);
-            setPayerId('');
-            setReceiverId('');
-            setAmount('');
+            setPayerId("");
+            setReceiverId("");
+            setAmount("");
           }}
           className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200"
         >
